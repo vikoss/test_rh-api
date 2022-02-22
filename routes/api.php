@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\EmployeeJobController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,13 @@ use App\Http\Controllers\EmployeeJobController;
 Route::post('/employees', [EmployeeController::class, 'store']);
 Route::post('/employees/{employee}/jobs', [EmployeeJobController::class, 'store']);
 Route::post('/jobs', [JobController::class, 'store']);
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('me', [AuthController::class, 'me']);
+});

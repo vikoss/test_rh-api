@@ -29,7 +29,7 @@ class EmployeeRequest extends FormRequest
             'dni'           => 'required',
             'date_of_birth' => 'required',
             'photo'         => 'required',
-            'user_id'       => 'required'
+            'user_id'       => 'nullable'
         ];
     }
 }

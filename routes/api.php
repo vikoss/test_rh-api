@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\EmployeeJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,5 @@ use App\Http\Controllers\JobController;
 }); */
 
 Route::post('/employees', [EmployeeController::class, 'store']);
+Route::post('/employees/{employee}/jobs', [EmployeeJobController::class, 'store']);
 Route::post('/jobs', [JobController::class, 'store']);

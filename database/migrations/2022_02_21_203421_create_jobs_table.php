@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('level');
-            $table->string('boss');
+            $table->boolean('is_boss');
             $table->timestamps();
         });
     }

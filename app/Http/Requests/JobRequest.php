@@ -24,10 +24,10 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required',
-            'code'  => 'required',
-            'level' => 'required',
-            'boss'  => 'required',
+            'name'      => 'required',
+            'code'      => 'required',
+            'level'     => 'required',
+            'is_boss'   => 'required',
         ];
     }
 }

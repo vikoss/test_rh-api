@@ -12,4 +12,9 @@ class EmployeeController extends Controller
     {
         return Employee::create($employee->validated());
     }
+
+    public function update(Employee $employee, Request $request)
+    {
+        return $employee->update($request->all());
+    }
 }

@@ -25,6 +25,7 @@ Route::middleware(['api'])->group(function () {
 
     Route::prefix('employees')->group(function () {
         Route::post('/', [EmployeeController::class, 'store']);
+        Route::put('/{employee}', [EmployeeController::class, 'update']);
         Route::post('/{employee}/jobs', [EmployeeJobController::class, 'store']);
     });
 

@@ -8,34 +8,12 @@ use App\Models\User;
 class EmployeeObserver
 {
     /**
-     * Handle the Employee "created" event.
+     * Handle the Employee "creating" event.
      *
      * @param  \App\Models\Employee  $employee
      * @return void
      */
-    public function created(Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Handle the Employee "updated" event.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return void
-     */
-    public function updated(Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Handle the Employee "updated" event.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return void
-     */
-    public function saving(Employee $employee)
+    public function creating(Employee $employee)
     {
         $end = 1;
         $surname = substr($employee->surname, 0, $end);
@@ -52,7 +30,31 @@ class EmployeeObserver
             'password'  => $employee->dni,
         ]);
         $employee->user_id = $user->id;
-        //dd($employee);
+    }
+
+    /**
+     * Handle the Employee "updated" event.
+     *
+     * @param  \App\Models\Employee  $employee
+     * @return void
+     */
+    public function updated(Employee $employee)
+    {
+        User::whereId($employee->user_id)->update([
+            'name'      => $employee->name,
+            'surname'   => $employee->surname,
+        ]);
+    }
+
+    /**
+     * Handle the Employee "updated" event.
+     *
+     * @param  \App\Models\Employee  $employee
+     * @return void
+     */
+    public function saving(Employee $employee)
+    {
+        //
     }
 
     /**

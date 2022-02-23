@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeRequest extends FormRequest
 {
@@ -28,8 +30,26 @@ class EmployeeRequest extends FormRequest
             'surname'       => 'required',
             'dni'           => 'required',
             'date_of_birth' => 'required',
-            'photo'         => 'required',
+            'photo'         => 'nullable',
+            //'photo_file'    => 'required',//max:2048
             'user_id'       => 'nullable'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name'          => $this->name,
+            'surname'       => $this->surname,
+            'dni'           => $this->dni,
+            'date_of_birth' => $this->date_of_birth,
+            'photo'         => $this->photo_file->store('photos', 'public'),
+            'user_id'       => $this->user_id,
+        ]);
     }
 }

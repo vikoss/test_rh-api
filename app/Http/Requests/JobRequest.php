@@ -30,4 +30,19 @@ class JobRequest extends FormRequest
             'is_boss'   => 'required',
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name'      => $this->name,
+            'code'      => $this->code,
+            'level'     => $this->level,
+            'is_boss'   => $this->is_boss === 'true' ? true : ($this->is_boss === 'false' ? false : $this->is_boss),
+        ]);
+    }
 }

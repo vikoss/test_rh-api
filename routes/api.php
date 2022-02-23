@@ -20,22 +20,24 @@ use App\Http\Controllers\UserJobController;
 |
 */
 
-/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-}); */
+Route::middleware(['api'])->group(function () {
+    Route::post('/jobs', [JobController::class, 'store']);
 
-Route::post('/employees', [EmployeeController::class, 'store']);
-Route::post('/employees/{employee}/jobs', [EmployeeJobController::class, 'store']);
-Route::get('/users/{user}/jobs', [UserJobController::class, 'index']);
-Route::post('/jobs', [JobController::class, 'store']);
-Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::prefix('employees')->group(function () {
+        Route::post('/', [EmployeeController::class, 'store']);
+        Route::post('/{employee}/jobs', [EmployeeJobController::class, 'store']);
+    });
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('me', [AuthController::class, 'me']);
+    Route::prefix('users')->group(function () {
+        Route::get('/{user}/jobs', [UserJobController::class, 'index']);
+        Route::get('/{user}', [UserController::class, 'show']);
+    });
+
+    Route::prefix('auth')->controller(AuthController::class)->group(function () {
+            Route::post('login', 'login');
+            Route::post('logout', 'logout');
+            Route::post('refresh', 'refresh');
+            Route::get('me', 'me');
+    });
 });
+

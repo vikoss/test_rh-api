@@ -6,6 +6,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\EmployeeJobController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,9 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/employees', [EmployeeController::class, 'store']);
 Route::post('/employees/{employee}/jobs', [EmployeeJobController::class, 'store']);
+Route::get('/users/{user}/jobs', [UserJobController::class, 'index']);
 Route::post('/jobs', [JobController::class, 'store']);
+Route::get('/users/{user}', [UserController::class, 'show']);
 
 Route::group([
     'middleware' => 'api',
